@@ -52,7 +52,9 @@ dependencies {
 //    // Validation crashes debug server
 //    modCompileOnly "curse.maven:antique-atlas-${atlas_project_id}:${atlas_file_id}"
 
-    modImplementation "curse.maven:repurposed-structures-fabric-${repurposed_structures_project_id}:${repurposed_structures_file_id}"
+    compileOnly "com.telepathicgrunt:RepurposedStructures:${repurposed_structures_version}+${minecraft_version}-fabric"
+
+    //modImplementation "curse.maven:repurposed-structures-fabric-${repurposed_structures_project_id}:${repurposed_structures_file_id}"
 }
 
 processResources {
