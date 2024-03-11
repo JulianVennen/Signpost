@@ -16,9 +16,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "gollorum.signpost.SignpostMod"
+      "gollorum.signpost.fabric.SignpostImpl"
+    ],
+    "client": [
+      "gollorum.signpost.fabric.SignpostImpl"
     ]
   },
+  "mixins": [
+    "signpost-common.mixins.json",
+    "signpost.mixins.json"
+  ],
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20.1"

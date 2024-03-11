@@ -45,6 +45,7 @@ allprojects {
         // for more information about repositories.
         maven { url 'https://www.cursemaven.com' }
         maven { url 'https://nexus.resourcefulbees.com/repository/telepathicgrunt/' }
+        maven { url 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven/' }
     }
 
     tasks.withType(JavaCompile) {

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "gollorum.signpost.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ChunkWatchMixin"
+  ],
+  "client": [
+    "ModelManagerMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
