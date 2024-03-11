@@ -1,9 +1,9 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.ModelWaystone;
-import gollorum.signpost.forge.minecraft.block.PostBlock;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.ModelWaystone;
+import gollorum.signpost.minecraft.block.PostBlock;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

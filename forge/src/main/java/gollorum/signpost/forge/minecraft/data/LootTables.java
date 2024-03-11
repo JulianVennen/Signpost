@@ -1,12 +1,15 @@
 package gollorum.signpost.forge.minecraft.data;
 
 import com.google.common.collect.ImmutableList;
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.ModelWaystone;
-import gollorum.signpost.forge.minecraft.block.PostBlock;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
-import gollorum.signpost.forge.minecraft.storage.loot.PermissionCheck;
-import gollorum.signpost.forge.minecraft.storage.loot.RegisteredWaystoneLootNbtProvider;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.ModelWaystone;
+import gollorum.signpost.minecraft.block.PostBlock;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
+import gollorum.signpost.minecraft.registry.BlockRegistry;
+import gollorum.signpost.minecraft.storage.loot.PermissionCheck;
+import gollorum.signpost.minecraft.storage.loot.RegisteredWaystoneLootNbtProvider;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;

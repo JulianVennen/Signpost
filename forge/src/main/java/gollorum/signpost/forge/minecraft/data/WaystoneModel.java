@@ -1,26 +1,21 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.ModelWaystone;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.ModelWaystone;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
+import gollorum.signpost.minecraft.data.BaseWaystoneModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class WaystoneModel {
+public class WaystoneModel extends BaseWaystoneModel {
 
 	private final BlockModels blockModelProvider;
 	public final BlockModelBuilder waystoneModel;
-	public static final ResourceLocation inPostLocation = new ResourceLocation(Signpost.MOD_ID, "block/in_post_waystone");
 	public final Map<ModelWaystone.Variant, ModelFile> variantModels = new HashMap<>();
 
 //	public static WaystoneModel addTo(BlockModels blockModelProvider) {
@@ -35,6 +30,7 @@ public class WaystoneModel {
 		waystoneModel = new BlockModelBuilder(new ResourceLocation(Signpost.MOD_ID, "block/" + WaystoneBlock.REGISTRY_NAME), blockModelProvider.existingFileHelper);
 	}
 
+	@Override
 	public void registerModels() {
 		ResourceLocation waystoneTexture = new ResourceLocation(Signpost.MOD_ID, "block/waystone");
 		blockModelProvider.cubeAll(WaystoneBlock.REGISTRY_NAME, waystoneTexture);

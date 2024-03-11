@@ -1,12 +1,12 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.ModelWaystone;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
-import gollorum.signpost.forge.minecraft.block.WaystoneGeneratorBlock;
-import gollorum.signpost.forge.minecraft.items.Brush;
-import gollorum.signpost.forge.minecraft.items.GenerationWand;
-import gollorum.signpost.forge.minecraft.items.Wrench;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.ModelWaystone;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
+import gollorum.signpost.minecraft.block.WaystoneGeneratorBlock;
+import gollorum.signpost.minecraft.items.Brush;
+import gollorum.signpost.minecraft.items.GenerationWand;
+import gollorum.signpost.minecraft.items.Wrench;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;

@@ -1,7 +1,7 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.WaystoneGeneratorBlock;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.WaystoneGeneratorBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 

@@ -1,6 +1,6 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
+import gollorum.signpost.Signpost;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockModelProvider;

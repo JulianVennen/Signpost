@@ -1,7 +1,7 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.registry.BlockRegistry;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.registry.BlockRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;

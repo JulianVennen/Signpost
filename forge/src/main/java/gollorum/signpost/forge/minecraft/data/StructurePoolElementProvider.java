@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import gollorum.signpost.forge.Signpost;
+import gollorum.signpost.Signpost;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -40,7 +40,7 @@ public abstract class StructurePoolElementProvider implements DataProvider {
             } else {
                 Codec<StructurePoolElement> codec = (Codec<StructurePoolElement>) elem.getType().codec();
                 DataResult<JsonElement> serializationResult = codec.encodeStart(JsonOps.INSTANCE, elem);
-                var option = serializationResult.resultOrPartial(str -> Signpost.LOGGER.error("Failed to serialize structure pool element: " + str));
+                var option = serializationResult.resultOrPartial(str -> Signpost.logger().error("Failed to serialize structure pool element: " + str));
                 option.ifPresent(t -> list.add(DataProvider.saveStable(output, t, this.pathProvider.json(id))));
             }
         });

@@ -1,11 +1,12 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.minecraft.block.ModelWaystone;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
-import gollorum.signpost.forge.minecraft.registry.RecipeRegistry;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.minecraft.block.ModelWaystone;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
+import gollorum.signpost.minecraft.registry.RecipeRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -26,26 +27,26 @@ public class WaystoneRecipe {
             .pattern("ses")
             .pattern("sss")
             .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
-            .unlockedBy("has_signpost", has(gollorum.signpost.forge.minecraft.data.ItemTags.SignpostTag))
+            .unlockedBy("has_signpost", RecipeProvider.has(ItemTags.SignpostTag))
         .save(consumer);
 
         for(ModelWaystone.Variant v : ModelWaystone.variants) {
             new SingleItemRecipeBuilder(
                 RecipeCategory.DECORATIONS,
                 RecipeRegistry.CutWaystoneSerializer.get(),
-                Ingredient.of(gollorum.signpost.forge.minecraft.data.ItemTags.WaystoneTag),
+                Ingredient.of(ItemTags.WaystoneTag),
                 v.getBlock(),
                 1
-            ).unlockedBy("has_waystone", has(gollorum.signpost.forge.minecraft.data.ItemTags.WaystoneTag))
+            ).unlockedBy("has_waystone", RecipeProvider.has(ItemTags.WaystoneTag))
             .save(consumer, new ResourceLocation(Signpost.MOD_ID, "cut_into_" + v.name));
         }
         new SingleItemRecipeBuilder(
             RecipeCategory.DECORATIONS,
             RecipeRegistry.CutWaystoneSerializer.get(),
-            Ingredient.of(gollorum.signpost.forge.minecraft.data.ItemTags.WaystoneTag),
+            Ingredient.of(ItemTags.WaystoneTag),
             WaystoneBlock.getInstance(),
             1
-        ).unlockedBy("has_waystone", has(gollorum.signpost.forge.minecraft.data.ItemTags.WaystoneTag))
+        ).unlockedBy("has_waystone", RecipeProvider.has(ItemTags.WaystoneTag))
             .save(consumer, new ResourceLocation(Signpost.MOD_ID, "cut_into_full_block"));
     }
 }

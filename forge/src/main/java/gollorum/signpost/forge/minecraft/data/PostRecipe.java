@@ -1,9 +1,10 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.minecraft.block.PostBlock;
-import gollorum.signpost.forge.minecraft.block.WaystoneBlock;
+import gollorum.signpost.minecraft.block.PostBlock;
+import gollorum.signpost.minecraft.block.WaystoneBlock;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.ItemLike;
@@ -28,7 +29,7 @@ public class PostRecipe {
             .pattern("s")
             .pattern("b")
             .unlockedBy("has_sign", has(ItemTags.SIGNS))
-            .unlockedBy("has_signpost", has(gollorum.signpost.forge.minecraft.data.ItemTags.SignpostTag))
+            .unlockedBy("has_signpost", RecipeProvider.has(gollorum.signpost.forge.minecraft.data.ItemTags.SignpostTag))
             .unlockedBy("has_waystone", has(WaystoneBlock.getInstance()))
             .group("Signpost");
     }

@@ -1,46 +1,31 @@
 package gollorum.signpost.forge.minecraft.data;
 
-import gollorum.signpost.forge.Signpost;
-import gollorum.signpost.forge.blockpartdata.Overlay;
-import gollorum.signpost.forge.blockpartdata.types.LargeSignBlockPart;
-import gollorum.signpost.forge.blockpartdata.types.SmallShortSignBlockPart;
-import gollorum.signpost.forge.blockpartdata.types.SmallWideSignBlockPart;
-import gollorum.signpost.forge.minecraft.block.PostBlock;
+import gollorum.signpost.Signpost;
+import gollorum.signpost.blockpartdata.Overlay;
+import gollorum.signpost.blockpartdata.types.LargeSignBlockPart;
+import gollorum.signpost.blockpartdata.types.SmallShortSignBlockPart;
+import gollorum.signpost.blockpartdata.types.SmallWideSignBlockPart;
+import gollorum.signpost.minecraft.block.PostBlock;
+import gollorum.signpost.minecraft.data.BasePostModel;
 import gollorum.signpost.utils.math.geometry.Vector3;
-import gollorum.signpost.forge.utils.modelGeneration.SignModelFactory;
+import gollorum.signpost.utils.modelGeneration.Cube;
+import gollorum.signpost.utils.modelGeneration.FaceData;
+import gollorum.signpost.utils.modelGeneration.FaceRotation;
+import gollorum.signpost.utils.modelGeneration.SignModelFactory;
+import gollorum.signpost.utils.modelGeneration.TextureArea;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.client.model.generators.*;
 
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class PostModel {
-
+public class PostModel extends BasePostModel {
     private static final String texturePost = "post";
-    public static final String textureSign = "texture";
-    public static final ResourceLocation mainTextureMarker = PostBlock.ModelType.Oak.mainTexture.location();
-    public static final String secondaryTexture = "secondary_texture";
-
     private static final ResourceLocation previewLocation = new ResourceLocation(Signpost.MOD_ID, "block/post_preview");
-
-    public static final ResourceLocation postLocation = new ResourceLocation(Signpost.MOD_ID, "block/post_only");
-
-    public static final ResourceLocation wideLocation = new ResourceLocation(Signpost.MOD_ID, "block/small_wide_sign");
-    public static final ResourceLocation wideFlippedLocation = new ResourceLocation(Signpost.MOD_ID, wideLocation.getPath() + "_flipped");
-    public static final ResourceLocation shortLocation = new ResourceLocation(Signpost.MOD_ID, "block/small_short_sign");
-    public static final ResourceLocation shortFlippedLocation = new ResourceLocation(Signpost.MOD_ID, shortLocation.getPath() + "_flipped");
-    public static final ResourceLocation largeLocation = new ResourceLocation(Signpost.MOD_ID, "block/large_sign");
-    public static final ResourceLocation largeFlippedLocation = new ResourceLocation(Signpost.MOD_ID, largeLocation.getPath() + "_flipped");
-
-    public static final ResourceLocation wideOverlayLocation = new ResourceLocation(Signpost.MOD_ID, "block/small_wide_sign_overlay");
-    public static final ResourceLocation wideOverlayFlippedLocation = new ResourceLocation(Signpost.MOD_ID, wideOverlayLocation.getPath() + "_flipped");
-    public static final ResourceLocation shortOverlayLocation = new ResourceLocation(Signpost.MOD_ID, "block/small_short_sign_overlay");
-    public static final ResourceLocation shortOverlayFlippedLocation = new ResourceLocation(Signpost.MOD_ID, shortOverlayLocation.getPath() + "_flipped");
-    public static final ResourceLocation largeOverlayLocation = new ResourceLocation(Signpost.MOD_ID, "block/large_sign_overlay");
-    public static final ResourceLocation largeOverlayFlippedLocation = new ResourceLocation(Signpost.MOD_ID, largeOverlayLocation.getPath() + "_flipped");
 
     public final Map<PostBlock.Variant, BlockModelBuilder> allModels;
 
@@ -124,7 +109,7 @@ public class PostModel {
             .end();
         makePostAt(new Vector3(8, 8, 8), previewBuilder);
         new SignModelFactory<String>().makeWideSign(new Vector3(8, 12, 8), "#" + textureSign, "#" + secondaryTexture)
-            .build(previewBuilder, SignModelFactory.Builder.BlockModel);
+            .build(previewBuilder, Builder.BlockModel);
 
         makePostAt(new Vector3(0, 8, 0), getBuilder(postLocation.toString()))
             .texture(texturePost, PostBlock.ModelType.Oak.postTexture.location());
@@ -174,18 +159,18 @@ public class PostModel {
     }
 
     private void buildDefaultAndFlipped(SignModelFactory<String> factory, ResourceLocation main, ResourceLocation flipped) {
-        factory.build(getBuilder(main.toString()), SignModelFactory.Builder.BlockModel)
+        factory.build(getBuilder(main.toString()), Builder.BlockModel)
             .texture(textureSign, mainTextureMarker)
             .texture(secondaryTexture, PostBlock.ModelType.Oak.secondaryTexture.location());
-        factory.build(getBuilder(flipped.toString()), SignModelFactory.Builder.BlockModelFlipped)
+        factory.build(getBuilder(flipped.toString()), Builder.BlockModelFlipped)
             .texture(textureSign, mainTextureMarker)
             .texture(secondaryTexture, PostBlock.ModelType.Oak.secondaryTexture.location());
     }
 
     private void buildDefaultAndFlippedOverlay(SignModelFactory<String> factory, ResourceLocation main, ResourceLocation flipped, ResourceLocation texture) {
-        factory.build(getBuilder(main.toString()), SignModelFactory.Builder.BlockModel)
+        factory.build(getBuilder(main.toString()), Builder.BlockModel)
             .texture(textureSign, texture);
-        factory.build(getBuilder(flipped.toString()), SignModelFactory.Builder.BlockModelFlipped)
+        factory.build(getBuilder(flipped.toString()), Builder.BlockModelFlipped)
             .texture(textureSign, texture);
     }
 
@@ -227,4 +212,58 @@ public class PostModel {
         return builder;
     }
 
+    public static class Builder {
+        private static ModelBuilder.FaceRotation convertRotation(FaceRotation rotation) {
+            return switch (rotation) {
+                case Zero -> ModelBuilder.FaceRotation.ZERO;
+                case Clockwise90 -> ModelBuilder.FaceRotation.CLOCKWISE_90;
+                case CounterClockwise90 -> ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90;
+                case UpsideDown -> ModelBuilder.FaceRotation.UPSIDE_DOWN;
+            };
+        }
+
+        public static final BiConsumer<BlockModelBuilder, Cube<String>> BlockModel = (b, cube) -> {
+            BlockModelBuilder.ElementBuilder builder = b.element()
+                    .from(cube.from.x, cube.from.y, cube.from.z)
+                    .to(cube.to.x, cube.to.y, cube.to.z);
+            for(Map.Entry<Direction, FaceData<String>> face: cube.sides.entrySet()) {
+                Direction dir = face.getKey();
+                FaceData<String> faceData = face.getValue();
+                TextureArea textureArea = faceData.textureArea().rotate(faceData.rotation(), true);
+                ModelBuilder<BlockModelBuilder>.ElementBuilder.FaceBuilder faceBuilder = builder.face(dir)
+                        .texture(faceData.texture())
+                        .uvs(textureArea.u.from, textureArea.v.from, textureArea.u.to, textureArea.v.to)
+                        .tintindex(faceData.tintIndex());
+                if(!faceData.rotation().equals(FaceRotation.Zero))
+                    faceBuilder.rotation(convertRotation(faceData.rotation()));
+            }
+        };
+
+        public static final BiConsumer<BlockModelBuilder, Cube<String>> BlockModelFlipped = (b, cube) -> {
+            BlockModelBuilder.ElementBuilder builder = b.element()
+                    .from(cube.from.x, cube.from.y, -cube.to.z)
+                    .to(cube.to.x, cube.to.y, -cube.from.z);
+            for(Map.Entry<Direction, FaceData<String>> face: cube.sides.entrySet()) {
+                Direction dir = face.getKey();
+                Direction.Axis axis = dir.getAxis();
+                FaceData<String> faceData = face.getValue();
+                TextureArea textureArea = faceData.textureArea();
+                if(axis.equals(Direction.Axis.Z)) {
+                    dir = dir.getOpposite();
+                    textureArea = textureArea.flipU();
+                } else if(axis.equals(Direction.Axis.X)) {
+                    textureArea = textureArea.flipU();
+                } else {
+                    textureArea = textureArea.flipV();
+                }
+                textureArea = textureArea.rotate(faceData.rotation(), true);
+                ModelBuilder<BlockModelBuilder>.ElementBuilder.FaceBuilder faceBuilder = builder.face(dir)
+                        .texture(faceData.texture())
+                        .uvs(textureArea.u.from, textureArea.v.from, textureArea.u.to, textureArea.v.to)
+                        .tintindex(faceData.tintIndex());;
+                if(!faceData.rotation().equals(FaceRotation.Zero))
+                    faceBuilder.rotation(convertRotation(faceData.rotation()));
+            }
+        };
+    }
 }
