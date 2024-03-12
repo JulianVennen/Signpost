@@ -1,6 +1,7 @@
 package gollorum.signpost.minecraft.gui;
 
 import com.google.common.collect.Streams;
+import gollorum.signpost.Signpost;
 import gollorum.signpost.minecraft.block.PostBlock;
 import gollorum.signpost.minecraft.block.tiles.PostTile;
 import gollorum.signpost.minecraft.gui.utils.Colors;
@@ -22,6 +23,7 @@ import gollorum.signpost.utils.math.Angle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +34,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-//import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.*;
 import java.util.function.Function;
@@ -128,17 +130,11 @@ public abstract class PaintBlockPartGui<T extends BlockPart<T>> extends Extended
     }
 
     private List<Tuple<TextureAtlasSprite, Optional<Tint>>> allSpritesFor(BucketItem item) {
-        var fluidTint = new FluidTint(item.arch$getFluid());
-        // var typeExtensions = IClientFluidTypeExtensions.of(fluidTint.fluid());
-        var ret = new ArrayList<Tuple<TextureAtlasSprite, Optional<Tint>>>(3);
-//        ResourceLocation loc = null;
-//        if((loc = typeExtensions.getFlowingTexture()) != null)
-//            ret.add(Tuple.of(spriteFrom(loc), Optional.of(fluidTint)));
-//        if((loc = typeExtensions.getOverlayTexture()) != null)
-//            ret.add(Tuple.of(spriteFrom(loc), Optional.of(fluidTint)));
-//        if((loc = typeExtensions.getStillTexture()) != null)
-//            ret.add(Tuple.of(spriteFrom(loc), Optional.of(fluidTint)));
-        return ret;
+        Fluid fluid = item.arch$getFluid();
+        var fluidTint = new FluidTint(fluid);
+        return Signpost.getFluidTextures(atlasSpriteGetter, fluid).stream().map(loc ->
+                Tuple.of(loc, Optional.<Tint>of(fluidTint))
+        ).collect(Collectors.toList());
     }
 
     private List<Tuple<TextureAtlasSprite, Optional<Tint>>> allSpritesFor(BlockState state) {

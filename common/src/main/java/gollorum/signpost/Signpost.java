@@ -25,11 +25,18 @@ import gollorum.signpost.networking.PacketHandler;
 import gollorum.signpost.utils.Delay;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collection;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Signpost {
@@ -82,6 +89,16 @@ public class Signpost {
         return LOGGER;
     }
 
+    @ExpectPlatform
+    public static boolean isModLoaded(String modid) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static RenderingUtil getRenderingUtil() {
+        throw new AssertionError();
+    }
+
     /**
      * Get the font for the given item stack.
      * This appears to not be possible on Fabric so the default font is used.
@@ -93,13 +110,29 @@ public class Signpost {
         throw new AssertionError();
     }
 
+    /**
+     * Get a collection of texture atlas sprites for the given fluid.
+     * @param atlasSpriteGetter A function to get a texture atlas sprite from a resource location.
+     * @param fluid The fluid.
+     * @return The collection of texture atlas sprites.
+     */
     @ExpectPlatform
-    public static boolean isModLoaded(String modid) {
+    public static Collection<TextureAtlasSprite> getFluidTextures(
+            Function<ResourceLocation, TextureAtlasSprite> atlasSpriteGetter,
+            Fluid fluid
+    ) {
         throw new AssertionError();
     }
 
+    /**
+     * Get the fluid color at the given position.
+     * @param fluid The fluid.
+     * @param level The block and tint getter.
+     * @param pos The position.
+     * @return The fluid color.
+     */
     @ExpectPlatform
-    public static RenderingUtil getRenderingUtil() {
+    public static int getFluidColorAt(Fluid fluid, BlockAndTintGetter level, BlockPos pos) {
         throw new AssertionError();
     }
 }

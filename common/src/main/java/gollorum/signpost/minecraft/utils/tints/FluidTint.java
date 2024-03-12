@@ -17,7 +17,7 @@ public record FluidTint(Fluid fluid) implements Tint {
 
     @Override
     public int getColorAt(BlockAndTintGetter level, BlockPos pos) {
-        return /*TODO: net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions.of(fluid).getTintColor(fluid.defaultFluidState(), level, pos)*/ 0xFFFFFF;
+        return Signpost.getFluidColorAt(fluid, level, pos);
     }
 
     public static void register() {
