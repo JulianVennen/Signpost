@@ -4,8 +4,6 @@ import gollorum.signpost.minecraft.gui.utils.TextureResource;
 import gollorum.signpost.utils.Tuple;
 import gollorum.signpost.utils.math.geometry.Vector3;
 import net.minecraft.core.Direction;
-/*import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.ModelBuilder;*/
 
 import java.util.*;
 import java.util.function.BiConsumer;

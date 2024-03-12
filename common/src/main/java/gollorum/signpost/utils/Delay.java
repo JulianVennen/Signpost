@@ -2,12 +2,8 @@ package gollorum.signpost.utils;
 
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.event.events.common.TickEvent;
-import gollorum.signpost.Signpost;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
-//import net.minecraftforge.event.TickEvent;
-//import net.minecraftforge.eventbus.api.SubscribeEvent;
-//import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;

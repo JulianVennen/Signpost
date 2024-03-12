@@ -1,17 +1,13 @@
 package gollorum.signpost.minecraft.registry;
 
-import gollorum.signpost.Signpost;
 import gollorum.signpost.blockpartdata.types.LargeSignBlockPart;
 import gollorum.signpost.blockpartdata.types.SignBlockPart;
 import gollorum.signpost.blockpartdata.types.SmallShortSignBlockPart;
 import gollorum.signpost.blockpartdata.types.SmallWideSignBlockPart;
-// import net.minecraftforge.api.distmarker.Dist;
-// import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashSet;
 import java.util.Set;
 
-// import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 // @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Signpost.MOD_ID, bus = Bus.MOD)
 public class ResourceRegistry {

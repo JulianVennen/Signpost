@@ -122,9 +122,6 @@ public class Teleport {
     }
 
     private static <T extends Entity> T changeDimensionWithChildren(T entity, ServerLevel level, Vector3 location, Angle yaw, Angle pitch) {
-        // ((Entity)entity).moveTo(portalinfo.pos.x, portalinfo.pos.y, portalinfo.pos.z, portalinfo.yRot, ((Entity)entity).getXRot());
-        //                    ((Entity)entity).setDeltaMovement(portalinfo.speed);
-
         var passengers = List.copyOf(entity.getPassengers());
 
         var leashed = findLeashedMobs(entity);

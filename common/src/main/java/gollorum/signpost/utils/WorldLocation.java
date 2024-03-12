@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class WorldLocation {
+public class WorldLocation{
 
     public static Optional<WorldLocation> from(@Nullable BlockEntity tile) {
         return tile != null && tile.hasLevel()

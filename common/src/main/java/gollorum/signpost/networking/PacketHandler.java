@@ -110,11 +110,7 @@ public class PacketHandler {
             NetworkManager.PacketContext c = context.get();
             c.queue(() -> {
                 handle(message, c);
-                /*if(c.getDirection().getReceptionSide().isClient())
-                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> handle(message, c));
-                else handle(message, c);*/
             });
-            //c.setPacketHandled(true);
         }
     }
 }
