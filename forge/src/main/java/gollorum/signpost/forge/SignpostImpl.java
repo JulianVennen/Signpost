@@ -4,7 +4,8 @@ import dev.architectury.platform.forge.EventBuses;
 import gollorum.signpost.Signpost;
 import gollorum.signpost.compat.Compat;
 import gollorum.signpost.forge.compat.waystones.WaystonesAdapter;
-import gollorum.signpost.forge.event.ChunkWatchEventCaller;
+import gollorum.signpost.forge.event.ForgeBusEventCaller;
+import gollorum.signpost.forge.event.ModBusEventCaller;
 import gollorum.signpost.forge.minecraft.ConfigImpl;
 import gollorum.signpost.forge.minecraft.data.DataGeneration;
 import gollorum.signpost.forge.minecraft.ForgeRenderingUtil;
@@ -22,7 +23,8 @@ public class SignpostImpl {
     public SignpostImpl() {
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        forgeBus.register(new ChunkWatchEventCaller());
+        forgeBus.register(new ForgeBusEventCaller());
+        modBus.register(new ModBusEventCaller());
         EventBuses.registerModEventBus(Signpost.MOD_ID, modBus);
         ConfigImpl.register();
 

@@ -4,7 +4,7 @@ import gollorum.signpost.events.ChunkWatchEvents;
 import net.minecraftforge.event.level.ChunkWatchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class ChunkWatchEventCaller {
+public class ForgeBusEventCaller {
     @SubscribeEvent
     public void onWatchChunk(ChunkWatchEvent.Watch event) {
         ChunkWatchEvents.WATCH.invoker().watch(event.getPlayer(), event.getLevel(), event.getPos());

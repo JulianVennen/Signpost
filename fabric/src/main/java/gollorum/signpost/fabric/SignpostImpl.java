@@ -2,6 +2,7 @@ package gollorum.signpost.fabric;
 
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import gollorum.signpost.Signpost;
+import gollorum.signpost.events.BlockEntityRenderersEvents;
 import gollorum.signpost.minecraft.config.Config;
 import gollorum.signpost.minecraft.rendering.RenderingUtil;
 import net.fabricmc.api.ClientModInitializer;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.config.ModConfig;
 public class SignpostImpl implements ModInitializer, ClientModInitializer {
     @Override
     public void onInitialize() {
+        Signpost.logger().error("Initializing Signpost common");
         ForgeConfigRegistry.INSTANCE.register(Signpost.MOD_ID, ModConfig.Type.SERVER, Config.ServerConfig);
         ForgeConfigRegistry.INSTANCE.register(Signpost.MOD_ID, ModConfig.Type.CLIENT, Config.ClientConfig);
         ForgeConfigRegistry.INSTANCE.register(Signpost.MOD_ID, ModConfig.Type.COMMON, Config.CommonConfig);
@@ -20,7 +22,9 @@ public class SignpostImpl implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        Signpost.logger().error("Initializing Signpost client");
         Signpost.initClient();
+        BlockEntityRenderersEvents.REGISTER.invoker().register();
     }
 
     public static RenderingUtil getRenderingUtil() {

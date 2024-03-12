@@ -1,23 +1,21 @@
 package gollorum.signpost;
 
 import com.google.common.base.Suppliers;
-import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.registries.RegistrarManager;
 import gollorum.signpost.compat.Compat;
 import gollorum.signpost.compat.ExternalWaystoneLibrary;
+import gollorum.signpost.events.BlockEntityRenderersEvents;
 import gollorum.signpost.events.JoinServerEvent;
 import gollorum.signpost.minecraft.block.BlockEventListener;
 import gollorum.signpost.minecraft.block.tiles.PostTile;
 import gollorum.signpost.minecraft.registry.BlockRegistry;
-import gollorum.signpost.minecraft.registry.CommandRegistry;
 import gollorum.signpost.minecraft.registry.CreativeModeTabRegistry;
 import gollorum.signpost.minecraft.registry.ItemRegistry;
 import gollorum.signpost.minecraft.registry.LootItemConditionRegistry;
 import gollorum.signpost.minecraft.registry.LootProviderRegistry;
 import gollorum.signpost.minecraft.registry.RecipeRegistry;
-import gollorum.signpost.minecraft.registry.ResourceRegistry;
 import gollorum.signpost.minecraft.registry.TileEntityRegistry;
 import gollorum.signpost.minecraft.rendering.PostRenderer;
 import gollorum.signpost.minecraft.rendering.RenderingUtil;
@@ -39,10 +37,8 @@ public class Signpost {
 
     public static void initClient() {
         Delay.registerClient();
-
-        ClientLifecycleEvent.CLIENT_SETUP.register(e -> {
-            BlockEntityRenderers.register(PostTile.getBlockEntityType(), PostRenderer::new);
-        });
+        BlockEntityRenderersEvents.REGISTER.register(() ->
+                BlockEntityRenderers.register(PostTile.getBlockEntityType(), PostRenderer::new));
     }
 
     public static void init() {
