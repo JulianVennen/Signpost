@@ -10,7 +10,11 @@ import gollorum.signpost.forge.minecraft.ConfigImpl;
 import gollorum.signpost.forge.minecraft.data.DataGeneration;
 import gollorum.signpost.forge.minecraft.ForgeRenderingUtil;
 import gollorum.signpost.minecraft.rendering.RenderingUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -44,5 +48,10 @@ public class SignpostImpl {
 
     public static boolean isModLoaded(String modid) {
         return ModList.get().isLoaded(modid);
+    }
+
+    public static Font getFont(ItemStack itemStack) {
+        Font font = IClientItemExtensions.of(itemStack).getFont(itemStack, IClientItemExtensions.FontContext.ITEM_COUNT);
+        return font != null ? font : Minecraft.getInstance().font;
     }
 }

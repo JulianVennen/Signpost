@@ -23,7 +23,9 @@ import gollorum.signpost.minecraft.worldgen.JigsawDeserializers;
 import gollorum.signpost.minecraft.worldgen.WaystoneDiscoveryEventListener;
 import gollorum.signpost.networking.PacketHandler;
 import gollorum.signpost.utils.Delay;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,6 +80,17 @@ public class Signpost {
 
     public static Logger logger() {
         return LOGGER;
+    }
+
+    /**
+     * Get the font for the given item stack.
+     * This appears to not be possible on Fabric so the default font is used.
+     * @param itemStack The item stack.
+     * @return The font.
+     */
+    @ExpectPlatform
+    public static Font getFont(ItemStack itemStack) {
+        throw new AssertionError();
     }
 
     @ExpectPlatform

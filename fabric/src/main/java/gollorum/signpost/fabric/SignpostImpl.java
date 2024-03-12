@@ -8,6 +8,9 @@ import gollorum.signpost.minecraft.rendering.RenderingUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.config.ModConfig;
 
 public class SignpostImpl implements ModInitializer, ClientModInitializer {
@@ -33,5 +36,9 @@ public class SignpostImpl implements ModInitializer, ClientModInitializer {
 
     public static boolean isModLoaded(String modid) {
         return FabricLoader.getInstance().isModLoaded(modid);
+    }
+
+    public static Font getFont(ItemStack itemStack) {
+        return Minecraft.getInstance().font;
     }
 }

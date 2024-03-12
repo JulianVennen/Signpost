@@ -1,5 +1,6 @@
 package gollorum.signpost.minecraft.gui.widgets;
 
+import gollorum.signpost.Signpost;
 import gollorum.signpost.minecraft.gui.utils.Rect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -9,7 +10,6 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-// import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class GuiItemRenderer extends AbstractWidget {
 
@@ -28,8 +28,7 @@ public class GuiItemRenderer extends AbstractWidget {
 
 	@Override
 	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		Font /*TODO: font = IClientItemExtensions.of(itemStack).getFont(itemStack, IClientItemExtensions.FontContext.ITEM_COUNT);
-		if (font == null)*/ font = Minecraft.getInstance().font;
+		Font font = Signpost.getFont(itemStack);
 		graphics.renderItem(itemStack, getX(), getY());
 		graphics.renderItemDecorations(font, itemStack, getX(), getY(), null);
 	}
