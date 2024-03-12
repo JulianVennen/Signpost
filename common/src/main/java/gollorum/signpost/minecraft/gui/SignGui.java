@@ -29,6 +29,7 @@ import gollorum.signpost.minecraft.gui.widgets.InputBox;
 import gollorum.signpost.minecraft.gui.widgets.ModelButton;
 import gollorum.signpost.minecraft.gui.widgets.TextDisplay;
 import gollorum.signpost.minecraft.utils.LangKeys;
+import gollorum.signpost.minecraft.ButtonExtensions;
 import gollorum.signpost.networking.PacketHandler;
 import gollorum.signpost.compat.ExternalWaystoneLibrary;
 import gollorum.signpost.utils.AngleProvider;
@@ -309,7 +310,7 @@ public class SignGui extends ExtendedScreen {
                 Component.translatable(LangKeys.removeSign),
                 b -> removeSign()
             ).bounds(getCenterX() - centerGap / 2 - buttonsWidth, doneRect.point.y, buttonsWidth, doneRect.height).build();
-            /* TODO: removeSignButton.setFGColor(Colors.invalid); */
+            ((ButtonExtensions) removeSignButton).signpost$setColor(Colors.invalid);
             addRenderableWidget(removeSignButton);
         } else {
             doneButton = Button.builder(
