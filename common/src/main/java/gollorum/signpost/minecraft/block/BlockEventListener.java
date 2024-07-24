@@ -35,7 +35,7 @@ public class BlockEventListener implements BlockEvent.Place, BlockEvent.Break {
 
     @Override
     public EventResult placeBlock(Level level, BlockPos pos, BlockState state, @Nullable Entity placer) {
-        if (state.getBlock() instanceof WithCountRestriction) {
+        if (state.getBlock() instanceof WithCountRestriction && !level.isClientSide) {
             BlockRestrictions.Type restrictionType = ((WithCountRestriction) state.getBlock()).getBlockRestrictionType();
             PlayerHandle player = PlayerHandle.from(placer);
             if(!BlockRestrictions.getInstance().tryDecrementRemaining(restrictionType, player))
